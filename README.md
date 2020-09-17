@@ -11,14 +11,14 @@ pip install pca (coming soon!)
 ```
 -->
 
-```
+```bash
 git clone https://github.com/idc9/pca.git
 python setup.py install
 ```
 
 ## Example
 
-```
+```python
 from pca.PCA import PCA
 from pca.toy_data import rand_factor_model
 
