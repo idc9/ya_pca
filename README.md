@@ -11,7 +11,7 @@ pip install pca (coming soon!)
 ```
 -->
 
-```bash
+```console
 git clone https://github.com/idc9/pca.git
 python setup.py install
 ```
