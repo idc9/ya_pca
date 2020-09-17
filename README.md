@@ -34,9 +34,13 @@ pca.fit(X)
 
 print('Marcenko Pastur singular value threshold selected rank:', pca.n_components_)				  
 ```
-
+<!--
 ![PCA scree plot](/docs/figures/scree_plot.png)
+-->
 
+<p align="center">
+  <img src="/docs/figures/scree_plot.png" width="256" height="256">
+</p>
 
 # Help and support
 
