@@ -28,4 +28,5 @@ plt.axvline(true_rank, label='True rank {}'.format(true_rank),
 plt.legend()
 plt.xlabel("PCA component")
 plt.ylabel("Singular value")
+plt.ylim(0)
 plt.savefig("scree_plot.png", dpi=200, bbox_inches='tight')

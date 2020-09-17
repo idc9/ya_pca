@@ -31,10 +31,15 @@ X = rand_factor_model(n_samples=200, n_features=100,
 pca = PCA(n_components='rmt_threshold',
           rank_sel_kws={'thresh_method': 'mpe'})
 pca.fit(X)
-
-print('Marcenko Pastur singular value threshold selected rank:', pca.n_components_)				  
 ```
 <!--
+
+```
+print('Marcenko Pastur singular value threshold selected rank:', pca.n_components_)
+
+'Marcenko Pastur singular value threshold selected rank: 10'
+```
+
 ![PCA scree plot](/docs/figures/scree_plot.png)
 -->
 
