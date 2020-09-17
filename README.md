@@ -26,6 +26,8 @@ from pca.toy_data import rand_factor_model
 X = rand_factor_model(n_samples=200, n_features=100,
                       rank=10, m=2, random_state=1)[0]
 
+# fit PCA and select the rank by thresholding
+# the singular values using the Marcenko Pastur distribution
 pca = PCA(n_components='rmt_threshold',
           rank_sel_kws={'thresh_method': 'mpe'})
 pca.fit(X)
@@ -42,7 +44,7 @@ print('Marcenko Pastur singular value threshold selected rank:', pca.n_component
 -->
 
 
-<img src="/docs/figures/scree_plot.png" width="512" height="512">
+<img src="/docs/figures/scree_plot.png" width="400" height="400">
 
 
 # Help and support
