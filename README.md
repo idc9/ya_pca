@@ -11,7 +11,7 @@ pip install pca (coming soon!)
 ```
 -->
 
-```console
+```
 git clone https://github.com/idc9/pca.git
 python setup.py install
 ```
@@ -25,8 +25,6 @@ from pca.toy_data import rand_factor_model
 # sample data from a factor model with 10 PCA components
 X = rand_factor_model(n_samples=200, n_features=100,
                       rank=10, m=2, random_state=1)[0]
-
-# X = perry_sim_dist()[0]
 
 pca = PCA(n_components='rmt_threshold',
           rank_sel_kws={'thresh_method': 'mpe'})
