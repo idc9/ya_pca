@@ -31,7 +31,7 @@ Some of the PCA rank selection methods require a noise estimate. We make the fol
 1. Marcenko Pastur median based estimate (Gavish and Donoho, 2014)
 
 2. Soft Impute cross-validation (Choi et al., 2017)
-	- Makes uses of SoftImpute algorithm (Mazumder et al. 2010) algorithm kindly implemented in [fancyimpute](https://github.com/iskandr/fancyimpute)
+	- Uses the SoftImpute algorithm (Mazumder et al. 2010) algorithm kindly implemented in [fancyimpute](https://github.com/iskandr/fancyimpute)
 
 
 

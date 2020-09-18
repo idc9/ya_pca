@@ -1,6 +1,6 @@
 # Yet another PCA package
 
-A sklearn compatible python package for principal components analysis that includes several methods for PCA rank selection such as [random matrix theory based thresholds](https://arxiv.org/abs/1305.5870), [Wold style and bi-cross validation](https://projecteuclid.org/euclid.aoas/1245676186), [Minka's method](https://papers.nips.cc/paper/1853-automatic-choice-of-dimensionality-for-pca.pdf), [Horn's Parallel Analysis](), etc. See [here](pca/rank_selection/README.md) for the list of rank selection methods that have been implemented as well as the corresponding references.
+A sklearn compatible python package for principal components analysis that includes several methods for PCA rank selection such as [random matrix theory based thresholds](https://arxiv.org/abs/1305.5870), [Wold style and bi-cross validation](https://projecteuclid.org/euclid.aoas/1245676186), [Minka's method](https://papers.nips.cc/paper/1853-automatic-choice-of-dimensionality-for-pca.pdf), [Horn's Parallel Analysis](), etc. See [here](pca/rank_selection/README.md) for the list of currently supported rank selection methods as well as the corresponding references.
 
 
 ## Installation
