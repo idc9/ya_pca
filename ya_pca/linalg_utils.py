@@ -16,7 +16,9 @@ def svd_wrapper(X, rank=None):
     ----------
     X: array-like,  shape (N, D)
 
-    rank: rank of the desired SVD (required for sparse matrices)
+    rank: int, None
+        rank of the desired SVD.
+        If None, will compute the largest min(X.shape) singular value/vectors.
 
     Output
     ------
@@ -34,16 +36,19 @@ def svd_wrapper(X, rank=None):
     """
     # TODO: give user option to compute randomized SVD
 
-    full = False  # compute the Full SVD
-    if rank is None or rank == min(X.shape):
-        full = True
+    if rank is None:
+        rank = min(X.shape)
 
-    if issparse(X) or not full:
-        assert rank <= min(X.shape) - 1  # svds cannot compute the full svd
+    rank = int(rank)
+    assert 1 <= rank and rank <= min(X.shape)
+
+    if rank <= min(X.shape) - 1:
         scipy_svds = svds(X, rank)
         U, D, V = fix_scipy_svds(scipy_svds)
 
     else:
+        assert not issparse(X)
+
         U, D, V = full_svd(X, full_matrices=False)
         V = V.T
 
