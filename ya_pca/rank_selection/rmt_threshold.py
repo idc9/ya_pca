@@ -9,7 +9,6 @@ def select_rank_rmt_threshold(X, thresh_method='dg',
                               noise_est='mp',
                               noise_est_kwargs={},
                               UDV=None):
-
     """
     Selects the PCA rank using one of the random matrix theory based thresholds.
 
@@ -72,7 +71,7 @@ def select_rank_rmt_threshold(X, thresh_method='dg',
 
 def marcenko_pastur_edge_threshold(shape, sigma):
     """
-    See (Gavish and Donoho, 2014)
+    See (Gavish and Donoho, 2014).
 
     Parameters
     ----------
@@ -81,7 +80,6 @@ def marcenko_pastur_edge_threshold(shape, sigma):
 
     sigma: float
         Estiamte of the noise standard deviation.
-
 
     Output
     ------

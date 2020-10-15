@@ -6,6 +6,7 @@ from scipy.sparse import issparse
 from sklearn.utils import check_array
 from sklearn.utils.validation import check_is_fitted
 from sklearn.base import BaseEstimator, TransformerMixin
+from sklearn.preprocessing import StandardScaler
 
 from warnings import warn
 
@@ -114,16 +115,10 @@ class PCA(BaseEstimator, TransformerMixin):
         #                         ensure_2d=True, copy=self.copy)
 
         self.metadata_ = {'shape': X.shape}
-        # if isinstance(X, pd.DataFrame):
-        #     sample_names = X.index.values
-        #     var_names = X.columns.values
 
-        # possibly center X
-        if self.center:
-            # assert X is not sparse
-            X = np.array(X)
-            self.center_ = X.mean(axis=0)
-            X = X - self.center_
+        self.centerer_ = StandardScaler(copy=True, with_mean=self.center,
+                                        with_std=False)
+        X = self.centerer_.fit_transform(X)
 
         # smallest rank the SVD can be
         m = min(X.shape)
@@ -169,7 +164,7 @@ class PCA(BaseEstimator, TransformerMixin):
 
             start_time = time()
             UDV, rank_est, out = select_rank(X=X, method=self.n_components,
-                                              UDV=UDV, **self.rank_sel_kws)
+                                             UDV=UDV, **self.rank_sel_kws)
 
             self.metadata_['rank_sel_runtime'] = time() - start_time
 
@@ -185,7 +180,7 @@ class PCA(BaseEstimator, TransformerMixin):
                      " to look at diagnostics for the rank selection method."
                      .format(rank_est))
 
-        # TODO: possibly get noise estimate
+        # TODO: get noise estimate
 
         return self
 
@@ -267,16 +262,11 @@ class PCA(BaseEstimator, TransformerMixin):
         -------
         X_new : array-like, shape (n_samples, n_components)
 
-        Examples
-        --------
-        TODO
         """
         check_is_fitted(self, attributes='loadings_')
 
         X = check_array(X)
-        if hasattr(self, 'center_'):
-            X = X - self.center_
-
+        X = self.centerer_.transform(X)
         projections = np.dot(X, self.loadings_)
         # if self.whiten:
         #     X_transformed /= np.sqrt(self.explained_variance_)
@@ -301,8 +291,9 @@ class PCA(BaseEstimator, TransformerMixin):
         #                     self.components_) + self.mean_
         # else:
         Y = np.dot(X, self.loadings_)
-        if hasattr(self, 'center_'):
-            Y = Y + self.center_
+        m = self.centerer_.mean_
+        if m is not None:
+            Y = Y + m
         return Y
 
     def score_samples(self, X):
@@ -341,6 +332,7 @@ class PCA(BaseEstimator, TransformerMixin):
             Log-likelihood of each sample under the current model.
         """
         raise NotImplementedError
+        # TODO: implement this!
         check_is_fitted(self, 'loadings_')
 
         X = check_array(X)

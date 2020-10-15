@@ -9,7 +9,7 @@ import pandas as pd
 
 def select_rank_minka(shape, svals):
     """
-    Selects the PCA rank using the method from (Minka, 2000)
+    Selects the PCA rank using the method from (Minka, 2000).
 
     Parameters
     ----------
@@ -17,7 +17,6 @@ def select_rank_minka(shape, svals):
 
     svals: array-like, (n_features, )
         All singular values of the data matrix X.
-
 
     Output
     ------

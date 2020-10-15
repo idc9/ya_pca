@@ -60,10 +60,11 @@ Testing is done using nose.
 
 We welcome contributions to make this a stronger package: data examples, bug fixes, spelling errors, new features, etc.
 
-
+<!--
 # Citation
 
-You can use the below badg to generate a DOI and bibtex citation
+You can use the below badge to generate a DOI and bibtex citation
 
  [![DOI](https://zenodo.org/badge/TODO.svg)](https://zenodo.org/badge/latestdoi/TODO)
 
+-->

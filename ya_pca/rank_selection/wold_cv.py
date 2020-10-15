@@ -3,7 +3,6 @@ import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
 
-
 from ya_pca.svd_missing import svd_missing
 from ya_pca.linalg_utils import rand_orthog
 
@@ -11,7 +10,7 @@ from ya_pca.linalg_utils import rand_orthog
 def select_rank_wold_cv(X, max_rank, p_holdout=0.3, opt_kws={}, n_folds=5,
                         random_state=None, rotate=False):
     """
-    Estimates the PCA rank using the Wold style cross- validation method discussed in (Owen and Perry, 2009)
+    Estimates the PCA rank using the Wold style cross- validation method discussed in (Owen and Perry, 2009).
 
     Parameters
     ----------
@@ -29,7 +28,6 @@ def select_rank_wold_cv(X, max_rank, p_holdout=0.3, opt_kws={}, n_folds=5,
 
     n_folds: int
         Number of cross-validation folds.
-
 
     random_state: None, int
         Random seed.

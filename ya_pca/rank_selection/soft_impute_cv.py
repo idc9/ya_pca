@@ -3,7 +3,7 @@ from itertools import product
 from sklearn.model_selection import KFold
 from joblib import Parallel, delayed
 
-from fancyimpute import SoftImpute
+# from fancyimpute import SoftImpute
 
 
 def soft_impute_cv(X, K=5, n_lambd_vals=100,
@@ -11,7 +11,7 @@ def soft_impute_cv(X, K=5, n_lambd_vals=100,
                    max_rank=None, verbose=False,
                    n_jobs=None, backend=None):
     """
-    Performs Wold style cross-validation to select the lambda value for the nuclear norm penalized version of PCA. See (Choi et al, 2017)
+    Performs Wold style cross-validation to select the lambda value for the nuclear norm penalized version of PCA. See (Choi et al, 2017).
 
     Parameters
     ----------
@@ -41,6 +41,10 @@ def soft_impute_cv(X, K=5, n_lambd_vals=100,
     out: dict
         Detailed cross-validation output.
     """
+
+    # only import from fancyimpute if we actually need it
+    # TODO-HACK: figure out better way to deal with this
+    from fancyimpute import SoftImpute
 
     assert X.ndim == 2
     lambd_max = np.linalg.norm(X, ord=2)  # largest sval

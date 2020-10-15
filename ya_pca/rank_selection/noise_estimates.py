@@ -193,6 +193,7 @@ def estimate_noise_shabalin_nobel(X, UDV=None):
     Estimates the noise level using the method presented in Section 4.1
     of (Shablin and Nobel, 2010)
     """
+    # TODO: implement this!
     raise NotImplementedError
 
 

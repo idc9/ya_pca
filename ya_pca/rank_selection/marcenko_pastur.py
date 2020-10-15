@@ -2,8 +2,6 @@ from scipy.integrate import quad
 from scipy.optimize import root_scalar
 import numpy as np
 
-# TODO: document beta
-
 
 def get_mp_pdf(beta):
     """
@@ -12,7 +10,7 @@ def get_mp_pdf(beta):
     Parameters
     ----------
     beta: float
-        TODO
+        TODO: document
 
     Output
     ------

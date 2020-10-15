@@ -12,7 +12,7 @@ def select_rank_bi_cv(X, max_rank=None, krow=2, kcol=2,
                       random_state=None, rotate=False):
     """
     Estimates the PCA rank using the bi-cross validation method discussed in
-    (Owen and Perry, 2009)
+    (Owen and Perry, 2009).
 
     Parameters
     ----------

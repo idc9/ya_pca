@@ -9,17 +9,16 @@ from ya_pca.linalg_utils import rand_orthog
 
 
 def rand_factor_model(n_samples=100, n_features=20,
-                      rank=10,
-                      m=1.5,
-                      sigma=1.0, random_state=None):
+                      rank=5, m=1.5, noise_std=1.0, random_state=None):
     """
 
-    X = sqrt(n) UV^T + E
-    U = scores (n_samples x rank) has iid normal entries
-    V = loadings (n_features x rank) is a column orthonormal matrix
-    E (n_samples x n_features) has iid N(0, sigma^2) entries
+    Samples from the matrix factorization model
 
-    Follows Choi et al. 2017 section 2.2.3.
+    X = U diag(svals) V^T + E
+
+    where U,V are orthonormal matrices. The svals are linearly increasing following the Choi et al. 2017 section 2.2.3. The noise matrix has iid N(0, noise_std^2) entries.
+
+
     Parameters
     ----------
     n_samples: int
@@ -34,7 +33,7 @@ def rand_factor_model(n_samples=100, n_features=20,
     m: float
         Signal strength.
 
-    sigma: float
+    noise_std: float
         Standard deviation of the noise.
 
     random_state: None, int
@@ -57,10 +56,13 @@ def rand_factor_model(n_samples=100, n_features=20,
     U = rand_orthog(n_samples, rank, random_state=rng)
     V = rand_orthog(n_features, rank, random_state=rng)
 
-    svals = m * np.arange(1, rank + 1) * sigma * (n_samples * n_features) ** (.25)
-    svals = np.sort(svals)[::-1]
+    svals = lin_spaced_svals(n_samples=n_samples,
+                             n_features=n_features,
+                             rank=rank,
+                             sigma_sq=noise_std ** 2,
+                             m=m)
 
-    E = rng.normal(size=(n_samples, n_features), scale=sigma)
+    E = rng.normal(size=(n_samples, n_features), scale=noise_std)
 
     X = (U * svals).dot(V.T) + E
 
@@ -71,10 +73,43 @@ def rand_factor_model(n_samples=100, n_features=20,
                'E': E}
 
 
+def lin_spaced_svals(n_samples, n_features, rank, sigma_sq=1, m=1.5):
+    """
+    Linearly spaced singular values from equation (2.15) of (Choi et al, 2017).
+
+    Parameters
+    ----------
+    n_samples: int
+        Number of samples.
+
+    n_features: int
+        Number of features.
+
+    rank: int
+        The rank of the low rank signal matrix.
+
+    sigma_sq: float
+        Noise level.
+
+    m: float
+        Signal strength. For m<1 we do not expect to be able to find the signal.
+
+    Output
+    ------
+    svals: list of floats, (rank, )
+        The singular values in decreasing order.
+    """
+
+    sval_base = m * np.sqrt(sigma_sq) * (n_samples * n_features) ** (.25)
+    svals = np.arange(1, rank + 1) * sval_base
+    svals = np.sort(svals)[::-1]
+    return svals
+
+
 def perry_sim_dist(strong=True, sparse=False, noise='white',
                    random_state=None):
     """
-    Toy PCA data example from Section 5.4 of (Perry, 2009)
+    Toy PCA data example from simulations in Section 5.4 of (Perry, 2009).
 
     Parameters
     ----------

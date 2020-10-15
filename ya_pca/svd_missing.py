@@ -133,5 +133,3 @@ def censored_lstsq(A, B, M):
         r = T.shape[1]
         T[:, np.arange(r), np.arange(r)] += 1e-6
         return np.squeeze(np.linalg.solve(T, rhs), axis=-1).T
-
-
